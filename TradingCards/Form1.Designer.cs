@@ -39,6 +39,7 @@
             this.labelTeam = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.pictureBoxPlayer = new System.Windows.Forms.PictureBox();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.panelCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer)).BeginInit();
             this.SuspendLayout();
@@ -62,15 +63,16 @@
             // cName
             // 
             this.cName.Text = "Name";
-            this.cName.Width = 200;
+            this.cName.Width = 231;
             // 
             // cTeam
             // 
             this.cTeam.Text = "Team";
-            this.cTeam.Width = 200;
+            this.cTeam.Width = 256;
             // 
             // panelCard
             // 
+            this.panelCard.Controls.Add(this.buttonDelete);
             this.panelCard.Controls.Add(this.labelFGP);
             this.panelCard.Controls.Add(this.labelRPG);
             this.panelCard.Controls.Add(this.labelAPG);
@@ -156,11 +158,21 @@
             this.pictureBoxPlayer.TabIndex = 0;
             this.pictureBoxPlayer.TabStop = false;
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(248, 14);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 8;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(906, 511);
+            this.ClientSize = new System.Drawing.Size(906, 579);
             this.Controls.Add(this.panelCard);
             this.Controls.Add(this.listViewPlayers);
             this.Name = "Form1";
@@ -172,5 +184,7 @@
             this.ResumeLayout(false);
 
         }
+
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

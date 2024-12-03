@@ -187,9 +187,8 @@ namespace TradingCards
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Console.WriteLine($"Failed to load image: {ex.Message}");
                     pictureBoxPlayer.Image = null;
                 }
             }
@@ -197,6 +196,101 @@ namespace TradingCards
             {
                 pictureBoxPlayer.Image = null;
             }
+
+            // Change the background color of the PictureBox based on the team
+            pictureBoxPlayer.BackColor = GetTeamColor(player.Team);
+
+            // Highlight stats dynamically with border color
+            HighlightStats(player);
+        }
+
+        private Color GetTeamColor(string team)
+        {
+            switch (team)
+            {
+                case "Los Angeles Lakers":
+                    return Color.Yellow;
+                case "Houston Rockets":
+                    return Color.Red;
+                case "Phoenix Suns":
+                    return Color.Purple;
+                case "Denver Nuggets":
+                    return Color.Cyan;
+                case "Charlotte Hornets":
+                    return Color.Blue;
+                case "Golden State Warriors":
+                    return Color.White;
+                case "Chicago Bulls":
+                    return Color.Black;
+                case "Los Angeles Clippers":
+                    return Color.Maroon;
+                default:
+                    return Color.LightGray; // Default color
+            }
+        }
+
+
+        private void HighlightStats(Player player)
+        {
+            // Create a pen for drawing borders
+            Pen greenPen = new Pen(Color.Green, 2);
+            Pen redPen = new Pen(Color.Red, 2);
+
+            // PPG
+            labelPPG.ForeColor = player.PointsPerGame > 20 ? Color.Green : Color.Red;
+          
+            // APG
+            labelAPG.ForeColor = player.AssistsPerGame > 5 ? Color.Green : Color.Red;
+      
+            // RPG
+            labelRPG.ForeColor = player.ReboundsPerGame > 7 ? Color.Green : Color.Red;
+
+            // FG%
+            labelFGP.ForeColor = player.FieldGoalPercentage > 50 ? Color.Green : Color.Red;
+            
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (listViewPlayers.SelectedItems.Count > 0)
+            {
+                // Get the selected ListViewItem
+                var selectedItem = listViewPlayers.SelectedItems[0];
+
+                var selectedPlayer = (Player)selectedItem.Tag;
+
+                // Confirm deletion
+                var confirmResult = MessageBox.Show(
+                    $"Are you sure you want to delete {selectedPlayer.Name}?",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (confirmResult == DialogResult.Yes)
+                {            
+                    listViewPlayers.Items.Remove(selectedItem);
+                    players.Remove(selectedPlayer);
+                    ClearPlayerCard();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a player to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Clear the player card when no player is selected
+        private void ClearPlayerCard()
+        {
+            labelName.Text = "Name:";
+            labelTeam.Text = "Team:";
+            labelPosition.Text = "Position:";
+            labelPPG.Text = "PPG:";
+            labelAPG.Text = "APG:";
+            labelRPG.Text = "RPG:";
+            labelFGP.Text = "FG%:";
+            pictureBoxPlayer.Image = null;
+            pictureBoxPlayer.BackColor = Color.LightGray;
         }
     }
 }
